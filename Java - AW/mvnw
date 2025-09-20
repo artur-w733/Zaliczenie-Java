@@ -1,0 +1,4 @@
+#!/bin/sh
+# Maven Wrapper Script
+# This file is part of the Maven Wrapper which allows easy Maven execution without needing to install Maven.
+exec java -classpath .mvn/wrapper/maven-wrapper.jar org.apache.maven.wrapper.MavenWrapperMain "$@"

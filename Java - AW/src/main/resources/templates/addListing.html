@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dodaj ogłoszenie - Portal Ogłoszeń</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/css/custom-theme.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/listings">
+                <i class="bi bi-house-door-fill me-2"></i>Portal Ogłoszeń
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/listings">Przeglądaj</a>
+                <a class="nav-link active" href="/listings/add">Dodaj</a>
+                <form method="post" action="/logout" class="d-inline">
+                    <button type="submit" class="nav-link btn btn-link text-white">Wyloguj</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h3 class="card-title mb-0">
+                            <i class="bi bi-plus-circle text-primary me-2"></i>
+                            Dodaj nowe ogłoszenie
+                        </h3>
+                    </div>
+                    <div class="card-body">
+
+                        <!-- Error Messages -->
+                        <div th:if="${error}" class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            <span th:text="${error}"></span>
+                        </div>
+
+                        <!-- Add Listing Form -->
+                        <form th:object="${listing}" th:action="@{/listings/add}" method="post">
+
+                            <div class="mb-3">
+                                <label for="title" class="form-label">
+                                    <i class="bi bi-card-heading text-primary me-1"></i>
+                                    Tytuł ogłoszenia *
+                                </label>
+                                <input type="text" 
+                                       class="form-control form-control-lg" 
+                                       id="title" 
+                                       th:field="*{title}" 
+                                       placeholder="np. Mieszkanie 3-pokojowe w centrum"
+                                       required 
+                                       maxlength="200">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="description" class="form-label">
+                                    <i class="bi bi-card-text text-primary me-1"></i>
+                                    Opis *
+                                </label>
+                                <textarea class="form-control" 
+                                          id="description" 
+                                          th:field="*{description}" 
+                                          rows="5"
+                                          placeholder="Opisz szczegółowo swoją nieruchomość..."
+                                          required 
+                                          maxlength="2000"></textarea>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="price" class="form-label">
+                                        <i class="bi bi-currency-dollar text-primary me-1"></i>
+                                        Cena (PLN) *
+                                    </label>
+                                    <input type="number" 
+                                           class="form-control" 
+                                           id="price" 
+                                           th:field="*{price}" 
+                                           placeholder="500000"
+                                           required 
+                                           min="1" 
+                                           step="1000">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="phoneNumber" class="form-label">
+                                        <i class="bi bi-telephone text-primary me-1"></i>
+                                        Telefon kontaktowy *
+                                    </label>
+                                    <input type="tel" 
+                                           class="form-control" 
+                                           id="phoneNumber" 
+                                           th:field="*{phoneNumber}" 
+                                           placeholder="123456789"
+                                           required 
+                                           pattern="[0-9]{9}">
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="imageUrl" class="form-label">
+                                    <i class="bi bi-image text-primary me-1"></i>
+                                    URL zdjęcia (opcjonalne)
+                                </label>
+                                <input type="url" 
+                                       class="form-control" 
+                                       id="imageUrl" 
+                                       th:field="*{imageUrl}"
+                                       placeholder="https://example.com/zdjecie.jpg">
+                                <div class="form-text">
+                                    Podaj link do zdjęcia swojej nieruchomości
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <a href="/listings" class="btn btn-outline-secondary">
+                                    <i class="bi bi-arrow-left me-2"></i>Anuluj
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-circle me-2"></i>Dodaj ogłoszenie
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
